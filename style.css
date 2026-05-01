@@ -1,0 +1,862 @@
+/* ════════════════════════════════════════════════════
+   BarberSchedule — style.css
+   Tema: Dark Brutalist / Laranja + Preto
+   Fonte: Bebas Neue (display) + DM Sans (corpo)
+════════════════════════════════════════════════════ */
+
+/* ── 1. VARIÁVEIS & RESET ── */
+:root {
+  --clr-bg:         #0a0a0a;
+  --clr-surface:    #141414;
+  --clr-surface-2:  #1c1c1c;
+  --clr-surface-3:  #252525;
+  --clr-border:     #2a2a2a;
+  --clr-orange:     #ff6b1a;
+  --clr-orange-dim: #c04e0e;
+  --clr-orange-glow:rgba(255, 107, 26, 0.18);
+  --clr-text:       #f0f0f0;
+  --clr-text-muted: #888;
+  --clr-text-dim:   #555;
+  --clr-success:    #22c55e;
+  --clr-error:      #ef4444;
+  --clr-booked:     #2a2a2a;
+  --clr-booked-txt: #444;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-orange: 0 0 32px rgba(255,107,26,0.25);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  /* textura de grain sutil */
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(255,107,26,0.08) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* ── 2. STATUS BAR ── */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 22px 4px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--clr-text);
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── 3. APP WRAPPER ── */
+.app-wrapper {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: calc(100vh - 28px);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 32px;
+}
+
+/* ── 4. HEADER ── */
+.app-header {
+  padding: 16px 20px 0;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--clr-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-orange);
+  flex-shrink: 0;
+}
+
+.brand-icon svg {
+  width: 26px;
+  height: 26px;
+  color: #fff;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: 1px;
+  line-height: 1;
+  color: var(--clr-text);
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: var(--clr-text-muted);
+  font-weight: 300;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* Badge de data no header */
+.header-date-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.badge-day {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.badge-date {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--clr-orange);
+  line-height: 1;
+}
+
+/* Barra de info do dia */
+.day-info-bar {
+  display: flex;
+  align-items: center;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  gap: 0;
+}
+
+.day-info-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--clr-text-muted);
+}
+
+.day-info-item svg {
+  width: 14px;
+  height: 14px;
+  color: var(--clr-orange);
+  flex-shrink: 0;
+}
+
+.day-separator {
+  width: 1px;
+  height: 24px;
+  background: var(--clr-border);
+  flex-shrink: 0;
+}
+
+/* ── 5. MAIN CONTENT ── */
+.main-content {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: var(--clr-text);
+  margin-bottom: 14px;
+}
+
+/* ── 6. SERVIÇOS (chips horizontais) ── */
+.services-section {
+  margin-bottom: 28px;
+}
+
+.services-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  /* esconde a scrollbar mas mantém funcional */
+  scrollbar-width: none;
+}
+.services-scroll::-webkit-scrollbar { display: none; }
+
+.service-chip {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--clr-surface);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.service-chip:hover {
+  border-color: var(--clr-orange);
+  background: var(--clr-surface-2);
+  transform: translateY(-2px);
+}
+
+.service-chip.active {
+  border-color: var(--clr-orange);
+  background: var(--clr-orange-glow);
+  box-shadow: 0 0 0 1px var(--clr-orange-dim) inset;
+}
+
+.chip-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.chip-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--clr-text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chip-price {
+  font-size: 11px;
+  color: var(--clr-orange);
+  font-weight: 500;
+}
+
+/* ── 7. GRADE DE HORÁRIOS ── */
+.slots-section {
+  margin-bottom: 24px;
+}
+
+.slots-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.slots-header .section-title {
+  margin-bottom: 0;
+}
+
+.slots-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--clr-text-muted);
+  font-weight: 300;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.legend-dot.available { background: var(--clr-orange); }
+.legend-dot.booked    { background: var(--clr-booked-txt); }
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* Botão de horário */
+.slot-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: var(--clr-surface);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 18px 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+  color: var(--clr-text);
+  overflow: hidden;
+  outline: none;
+  /* ripple layer */
+}
+
+.slot-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--clr-orange);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+
+.slot-btn:not(.booked):hover {
+  border-color: var(--clr-orange);
+  background: var(--clr-surface-2);
+  box-shadow: 0 0 0 2px var(--clr-orange-glow);
+  transform: translateY(-3px) scale(1.01);
+}
+
+.slot-btn:not(.booked):active::after {
+  opacity: 0.15;
+  transform: scale(1);
+}
+
+.slot-btn.booked {
+  background: var(--clr-booked);
+  border-color: var(--clr-booked);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.slot-btn.just-booked {
+  animation: slotBooked 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slotBooked {
+  0%   { transform: scale(1); background: var(--clr-orange-glow); border-color: var(--clr-orange); }
+  40%  { transform: scale(0.92); }
+  100% { transform: scale(1); background: var(--clr-booked); border-color: var(--clr-booked); }
+}
+
+.slot-time {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 1px;
+  line-height: 1;
+  color: var(--clr-text);
+  transition: var(--transition);
+}
+
+.slot-btn.booked .slot-time {
+  color: var(--clr-booked-txt);
+}
+
+.slot-period {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.slot-btn.booked .slot-period {
+  color: var(--clr-booked-txt);
+}
+
+.slot-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: var(--clr-orange);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--clr-orange);
+}
+
+.slot-btn.booked .slot-badge {
+  background: var(--clr-booked-txt);
+  box-shadow: none;
+}
+
+.slot-booked-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--clr-booked-txt);
+  font-weight: 700;
+}
+
+/* Animação de entrada dos slots */
+.slot-btn {
+  animation: slotIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes slotIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── 8. RODAPÉ ── */
+.app-footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--clr-text-dim);
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+/* ── 9. MODAL / BOTTOM SHEET ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  /* estado oculto */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-sheet {
+  width: 100%;
+  max-width: 430px;
+  background: var(--clr-surface);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 12px 24px 40px;
+  border-top: 1px solid var(--clr-border);
+  box-shadow: 0 -16px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  /* estado oculto */
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+  max-height: 92vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.modal-sheet::-webkit-scrollbar { display: none; }
+
+.modal-overlay.active .modal-sheet {
+  transform: translateY(0);
+}
+
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--clr-border);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.modal-time-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--clr-orange-glow);
+  border: 1px solid var(--clr-orange-dim);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--clr-orange);
+}
+
+.modal-time-badge svg {
+  width: 16px;
+  height: 16px;
+  color: var(--clr-orange);
+}
+
+.modal-close {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--clr-text-muted);
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  background: var(--clr-surface-3);
+  color: var(--clr-text);
+  border-color: var(--clr-orange);
+}
+
+.modal-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.modal-subtitle {
+  font-size: 13px;
+  color: var(--clr-text-muted);
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+/* ── 10. CAMPOS DO FORMULÁRIO ── */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.field-label svg {
+  width: 14px;
+  height: 14px;
+  color: var(--clr-orange);
+  flex-shrink: 0;
+}
+
+.field-input {
+  width: 100%;
+  background: var(--clr-surface-2);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 15px 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--clr-text);
+  outline: none;
+  transition: var(--transition);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field-input::placeholder {
+  color: var(--clr-text-dim);
+  font-weight: 300;
+}
+
+.field-input:focus {
+  border-color: var(--clr-orange);
+  background: var(--clr-surface-3);
+  box-shadow: 0 0 0 3px var(--clr-orange-glow);
+}
+
+.field-input.error {
+  border-color: var(--clr-error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+/* Select customizado */
+.field-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 44px;
+}
+
+.field-select option {
+  background: #1c1c1c;
+  color: var(--clr-text);
+}
+
+.field-hint {
+  font-size: 11px;
+  color: var(--clr-text-dim);
+  font-weight: 300;
+  margin-top: -4px;
+}
+
+/* ── 11. RESUMO DO AGENDAMENTO ── */
+.booking-summary {
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  gap: 0;
+}
+
+.summary-row {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.summary-row + .summary-row {
+  border-left: 1px solid var(--clr-border);
+}
+
+.summary-label {
+  font-size: 11px;
+  color: var(--clr-text-muted);
+  font-weight: 300;
+}
+
+.summary-value {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--clr-orange);
+  letter-spacing: 0.5px;
+}
+
+/* ── 12. BOTÃO CONFIRMAR ── */
+.btn-confirm {
+  width: 100%;
+  background: var(--clr-orange);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 18px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  color: #fff;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  margin-top: 4px;
+  box-shadow: 0 4px 20px rgba(255,107,26,0.35);
+}
+
+.btn-confirm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.btn-confirm:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-confirm:hover {
+  background: #ff7f3a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255,107,26,0.45);
+}
+
+.btn-confirm:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-confirm:disabled {
+  background: var(--clr-surface-3);
+  color: var(--clr-text-dim);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-loader svg {
+  width: 18px;
+  height: 18px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 13. TOAST DE NOTIFICAÇÃO ── */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--clr-text);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 200;
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  max-width: 90vw;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast.success {
+  border-color: rgba(34, 197, 94, 0.4);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.toast.error {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.toast-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ── 14. RESPONSIVIDADE EXTRA ── */
+@media (min-width: 430px) {
+  .status-bar,
+  .app-wrapper {
+    border-left: 1px solid var(--clr-border);
+    border-right: 1px solid var(--clr-border);
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .brand-name { font-size: 22px; }
+}
+
+/* ── 15. SKELETON DE SINCRONIZAÇÃO ── */
+
+/* Célula de loading exibida enquanto aguarda o GET do Sheets */
+.slot-skeleton {
+  border-radius: var(--radius-md);
+  height: 90px; /* mesma altura aproximada do slot-btn */
+  background: linear-gradient(
+    90deg,
+    var(--clr-surface) 25%,
+    var(--clr-surface-2) 50%,
+    var(--clr-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.4s ease infinite, slotIn 0.3s ease both;
+}
+
+@keyframes skeletonShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Mensagem de "todos os horários ocupados" */
+.slots-empty {
+  grid-column: 1 / -1; /* ocupa toda a largura da grade */
+  text-align: center;
+  padding: 32px 16px;
+  font-size: 14px;
+  color: var(--clr-text-muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ── 16. SCROLLBAR GLOBAL ── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--clr-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--clr-border);
+  border-radius: 2px;
+}
